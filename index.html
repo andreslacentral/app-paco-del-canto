@@ -465,6 +465,34 @@
     .check-text{display:block;font-size:14px;font-weight:650;line-height:1.45}
     .check-note{display:block;font-size:12px;color:var(--muted);font-weight:500;margin-top:4px;line-height:1.45}
 
+    .phase-checklist .check-progress{
+      display:flex;align-items:center;justify-content:space-between;gap:12px;
+      margin:-2px 0 12px;padding:10px 12px;border-radius:13px;
+      background:var(--brand-pale);color:var(--brand-dark)
+    }
+    .phase-checklist .check-progress strong{font-size:13px}
+    .phase-checklist .check-progress span{font-size:11px;font-weight:650;color:#53757b;text-align:right}
+    .phase-checklist .check-help{font-size:12px;color:var(--muted);line-height:1.45;margin:-4px 0 12px}
+    .check-item.check-action{
+      width:100%;font:inherit;color:inherit;text-align:left;cursor:pointer;
+      -webkit-tap-highlight-color:transparent;touch-action:manipulation;
+      transition:background .16s ease,border-color .16s ease,transform .08s ease
+    }
+    .check-item.check-action:active{transform:scale(.992)}
+    .check-item.check-action .check-ui{
+      background:#fff;color:var(--brand-dark);border:1.5px solid #a9cbd0;
+      font-size:11px
+    }
+    .check-item.check-action.done{
+      background:#f2faf9;border-color:#a9d8d4
+    }
+    .check-item.check-action.done .check-ui{
+      background:var(--brand);border-color:var(--brand);color:#fff
+    }
+    .check-item.check-action.done .check-text{color:#31545a}
+    .check-item.check-action.done .check-note{color:#6c8589}
+    .check-item.check-action .check-ui svg{width:15px;height:15px;stroke-width:2.8}
+
     .doctor-card{overflow:hidden;padding:0}
     .doctor-img{height:168px;background:#dfe7e9;position:relative;overflow:hidden}
     .doctor-img img{width:100%;height:100%;object-fit:cover;display:block}
@@ -1505,14 +1533,19 @@ const DATA = {
       {id:"long",from:181,to:99999,time:"A partir de 6 meses",title:"Vida con la prótesis",desc:"Mantener actividad, hábitos saludables y revisiones a largo plazo."}
     ],
     checklist:[
-      ["pre7","Revisar las indicaciones de medicación","Seguir siempre las instrucciones entregadas por el equipo médico."],
-      ["pre7","Preparar zonas de paso en casa","Retirar alfombras sueltas, cables u obstáculos que puedan favorecer una caída."],
-      ["pre7","Organizar una silla estable con apoyabrazos","Evitar asientos muy bajos durante la primera fase si así se ha indicado."],
-      ["pre7","Preparar calzado cerrado y antideslizante","Fácil de poner y con buena sujeción."],
-      ["pre1","Preparar documentación e informes","Incluir documentación sanitaria y pruebas indicadas."],
-      ["pre1","Preparar ropa cómoda","Prendas amplias y fáciles de poner."],
-      ["pre1","Confirmar ayuno y hora de ingreso","Aplicar únicamente las instrucciones concretas del hospital."],
-      ["hospital","Tener las muletas o ayudas preparadas","El equipo indicará qué ayuda corresponde y cómo utilizarla."],
+      ["pre7","Revisar las indicaciones de medicación","Seguir siempre las instrucciones entregadas por el equipo médico.","medication"],
+      ["pre7","Preparar zonas de paso en casa","Retirar alfombras sueltas, cables u obstáculos que puedan favorecer una caída.","home_paths"],
+      ["pre7","Organizar una silla estable con apoyabrazos","Evitar asientos muy bajos durante la primera fase si así se ha indicado.","chair"],
+      ["pre7","Preparar calzado cerrado y antideslizante","Fácil de poner y con buena sujeción.","shoes"],
+      ["pre1","Preparar documentación e informes","Incluir documentación sanitaria y pruebas indicadas.","documents"],
+      ["pre1","Preparar ropa cómoda","Prendas amplias y fáciles de poner.","clothes"],
+      ["pre1","Confirmar ayuno y hora de ingreso","Aplicar únicamente las instrucciones concretas del hospital.","fasting_arrival"],
+      ["hospital","Tener las muletas o ayudas preparadas","El equipo indicará qué ayuda corresponde y cómo utilizarla.","walking_aids"],
+      ["hospital","Tener clara la pauta de medicación al alta","Revisar qué medicación debe tomarse, durante cuánto tiempo y qué hacer si surge alguna duda.","discharge_medication"],
+      ["hospital","Saber cómo cuidar la herida","Revisar las indicaciones de curas, apósito y ducha entregadas por el equipo.","wound_care"],
+      ["hospital","Tener claros los ejercicios y la movilización inicial","Seguir únicamente los ejercicios, apoyos y ayudas indicados para esta fase.","initial_mobility"],
+      ["hospital","Conocer la próxima revisión","Comprobar cuándo y dónde será el siguiente control si ya ha sido programado.","next_review"],
+      ["hospital","Saber cómo contactar con el equipo y cuándo consultar","Tener localizados los datos de contacto y revisar las señales de alerta antes de volver a casa.","contact_alerts"],
     ],
     exercises:[
       {phase:"pre",group:"Movilidad y estiramientos",title:"Estiramiento de isquiotibiales",icon:"activity",tag:"Antes de cirugía",desc:"Sentado, con la pierna apoyada y la rodilla extendida, inclinar el tronco hacia delante de forma suave hasta notar tensión detrás del muslo.",goal:"Mantener la flexibilidad de la cadena posterior y facilitar una marcha más cómoda.",when:"Antes de la cirugía, si el dolor de cadera permite adoptar la posición.",note:"Debe producir tensión tolerable, no dolor articular ni dolor irradiado."},
@@ -1554,14 +1587,19 @@ const DATA = {
       {id:"long",from:181,to:99999,time:"A partir de 6 meses",title:"Vida con la prótesis",desc:"Mantener actividad, hábitos saludables y revisiones a largo plazo."}
     ],
     checklist:[
-      ["pre7","Revisar las indicaciones de medicación","Seguir las instrucciones específicas del equipo médico."],
-      ["pre7","Retirar obstáculos de las zonas de paso","Dejar recorridos amplios y seguros para caminar con ayudas."],
-      ["pre7","Preparar una zona de descanso cómoda","Con acceso sencillo a objetos de uso frecuente."],
-      ["pre7","Preparar calzado seguro","Cerrado, estable y antideslizante."],
-      ["pre1","Preparar documentación e informes","Llevar todo lo solicitado por el centro."],
-      ["pre1","Preparar ropa amplia","Facilita vestirse y manejar la inflamación inicial."],
-      ["pre1","Confirmar ayuno y hora de ingreso","Aplicar las instrucciones concretas recibidas."],
-      ["hospital","Tener las ayudas técnicas preparadas","Muletas, bastones u otra ayuda según prescripción."],
+      ["pre7","Revisar las indicaciones de medicación","Seguir las instrucciones específicas del equipo médico.","medication"],
+      ["pre7","Retirar obstáculos de las zonas de paso","Dejar recorridos amplios y seguros para caminar con ayudas.","home_paths"],
+      ["pre7","Preparar una zona de descanso cómoda","Con acceso sencillo a objetos de uso frecuente.","rest_area"],
+      ["pre7","Preparar calzado seguro","Cerrado, estable y antideslizante.","shoes"],
+      ["pre1","Preparar documentación e informes","Llevar todo lo solicitado por el centro.","documents"],
+      ["pre1","Preparar ropa amplia","Facilita vestirse y manejar la inflamación inicial.","clothes"],
+      ["pre1","Confirmar ayuno y hora de ingreso","Aplicar las instrucciones concretas recibidas.","fasting_arrival"],
+      ["hospital","Tener las ayudas técnicas preparadas","Muletas, bastones u otra ayuda según prescripción.","walking_aids"],
+      ["hospital","Tener clara la pauta de medicación al alta","Revisar qué medicación debe tomarse, durante cuánto tiempo y qué hacer si surge alguna duda.","discharge_medication"],
+      ["hospital","Saber cómo cuidar la herida","Revisar las indicaciones de curas, apósito y ducha entregadas por el equipo.","wound_care"],
+      ["hospital","Tener claros los ejercicios y la movilización inicial","Seguir únicamente los ejercicios, apoyos y ayudas indicados para esta fase.","initial_mobility"],
+      ["hospital","Conocer la próxima revisión","Comprobar cuándo y dónde será el siguiente control si ya ha sido programado.","next_review"],
+      ["hospital","Saber cómo contactar con el equipo y cuándo consultar","Tener localizados los datos de contacto y revisar las señales de alerta antes de volver a casa.","contact_alerts"],
     ],
     exercises:[
       {phase:"pre",group:"Movilidad y estiramientos",title:"Estiramiento de isquiotibiales",icon:"activity",tag:"Antes de cirugía",desc:"Sentado, con la pierna apoyada y la rodilla extendida, inclinar el tronco hacia delante hasta notar tensión suave detrás del muslo.",goal:"Mantener la flexibilidad posterior y favorecer la extensión de rodilla.",when:"Antes de la cirugía, dentro de un rango tolerable.",note:"Evitar rebotes y no forzar si aumenta el dolor articular."},
@@ -1804,13 +1842,32 @@ const FAQ = [
 
 const PATIENT_FAQ = {"hip":{"before":[{"q":"¿Cuándo suele recomendarse una prótesis de cadera?","a":"Suele plantearse cuando el dolor, la rigidez o la pérdida de función por el deterioro de la articulación limitan de forma importante la vida diaria y las medidas conservadoras ya no ofrecen un alivio suficiente. El objetivo principal es reducir el dolor y mejorar la función."},{"q":"¿Qué pruebas suelen hacerse antes de la operación?","a":"La valoración preoperatoria revisa antecedentes, alergias y medicación. Según la edad y el estado de salud puede incluir analítica, tensión arterial, electrocardiograma u otras pruebas, además de la valoración de anestesia. El equipo indicará cuáles son necesarias en cada caso."},{"q":"¿Tengo que suspender algún medicamento?","a":"No conviene retirar medicación por cuenta propia. Anticoagulantes, antiagregantes, algunos tratamientos para la diabetes, antiinflamatorios o suplementos pueden requerir ajustes. Deben seguirse las instrucciones concretas entregadas por cirugía y anestesia."},{"q":"¿Merece la pena hacer ejercicio antes de operarme?","a":"Mantenerse activo dentro de lo tolerable y trabajar fuerza, movilidad y capacidad aeróbica puede facilitar la recuperación inicial. Los ejercicios previos deben adaptarse al dolor y a las indicaciones del equipo."},{"q":"¿Cómo puedo preparar la casa para la vuelta?","a":"Conviene retirar obstáculos y alfombras que puedan favorecer tropiezos, dejar los objetos de uso frecuente al alcance, disponer de un asiento estable y organizar ayuda, comidas y transporte para los primeros días. Si se recomiendan ayudas técnicas, es útil tenerlas preparadas con antelación."},{"q":"¿Qué tipo de anestesia se utiliza?","a":"Una prótesis de cadera puede realizarse con anestesia general o con anestesia regional/raquídea, en ocasiones acompañada de sedación. La elección depende del caso y se decide con el equipo de anestesia."},{"q":"¿La prótesis es diferente si la cirugía se hace con Mako?","a":"No necesariamente. La cirugía robótica modifica sobre todo la forma de planificar y asistir determinados pasos de la intervención. El modelo de implante se selecciona según la anatomía, las necesidades del paciente y el plan quirúrgico."}],"during":[{"q":"¿Cuánto dura una operación de prótesis de cadera?","a":"Muchas intervenciones se sitúan aproximadamente entre una y dos horas, aunque la duración puede variar según la anatomía, la técnica, el tipo de prótesis y la complejidad del caso."},{"q":"¿Qué ocurre durante la intervención?","a":"En una prótesis total se retiran las superficies dañadas de la articulación: se sustituye la cabeza del fémur y se prepara el acetábulo para colocar los componentes que formarán la nueva articulación. Después se comprueba la estabilidad y se cierra la herida."},{"q":"¿Estaré despierto durante la cirugía?","a":"Depende de la anestesia acordada. Con anestesia general la persona permanece dormida. Con anestesia regional puede mantenerse despierta o recibir sedación para estar relajada y somnolienta."},{"q":"¿Qué hace exactamente el sistema Mako?","a":"Cuando está indicado, Mako ayuda a trabajar sobre una planificación tridimensional y asiste al cirujano en la ejecución de determinados pasos y en la colocación de los componentes. El cirujano mantiene el control y toma las decisiones durante todo el procedimiento."},{"q":"¿Cómo se controla el dolor al terminar?","a":"Habitualmente se utiliza un enfoque combinado con diferentes analgésicos y, según el caso, técnicas regionales o medicación administrada durante la cirugía. El objetivo es controlar el dolor lo suficiente para facilitar el descanso y empezar a movilizarse con seguridad."},{"q":"¿Cuándo podré ponerme de pie o empezar a caminar?","a":"Si la situación médica lo permite, la movilización suele comenzar muy pronto, a menudo el mismo día o al día siguiente. Enfermería y fisioterapia ayudan a levantarse y a caminar con las ayudas necesarias."},{"q":"¿Cuándo se puede volver a casa?","a":"El alta depende de la evolución: dolor razonablemente controlado, herida sin problemas relevantes, capacidad para levantarse y caminar con seguridad, tolerancia a la alimentación y ausencia de complicaciones que requieran vigilancia. Muchas personas reciben el alta durante los primeros días."}],"after":[{"q":"¿Es normal tener dolor e inflamación después?","a":"Es frecuente presentar dolor, inflamación y cierta sensación de rigidez al inicio. Lo importante es que la evolución sea progresiva. Un aumento claro del dolor o de la inflamación, especialmente si aparece de forma brusca o se acompaña de otros síntomas, debe consultarse."},{"q":"¿Cuándo puedo ducharme y cómo cuido la herida?","a":"Depende del tipo de apósito y del protocolo de curas. Deben seguirse las instrucciones del alta sobre cuándo puede mojarse la zona. En general, no se recomienda sumergir la herida en bañera o piscina hasta que esté cicatrizada y el equipo lo autorice."},{"q":"¿Cuánto tiempo necesitaré muletas?","a":"No existe un plazo único. La retirada depende de la carga permitida, la fuerza, el equilibrio y la calidad de la marcha. Debe hacerse de forma progresiva siguiendo las indicaciones de cirugía o fisioterapia."},{"q":"¿Tengo que dormir o sentarme de una forma concreta?","a":"Las precauciones pueden variar según el abordaje quirúrgico y las características del caso. No todas las personas reciben las mismas restricciones. Las indicaciones específicas del cirujano sobre posiciones, flexión de cadera y movimientos a evitar son las que deben prevalecer."},{"q":"¿Cuándo podré volver a conducir?","a":"Depende del lado operado, el tipo de vehículo, la fuerza, la movilidad, el tiempo de reacción y la medicación. No debe conducirse mientras se tomen fármacos que reduzcan la capacidad de reacción. La vuelta debe confirmarse con el equipo cuando sea posible realizar una frenada de emergencia con seguridad."},{"q":"¿Cuándo podré volver al trabajo o hacer deporte?","a":"La reincorporación depende de las exigencias del trabajo y de la evolución. Las actividades de bajo impacto suelen retomarse antes que los trabajos físicos o los deportes exigentes. La progresión debe individualizarse y comentarse en las revisiones."},{"q":"¿Qué síntomas deberían hacerme consultar?","a":"Dificultad para respirar, dolor torácico, desmayo o una situación que parezca una emergencia requieren atención urgente. También debe contactarse con el equipo ante fiebre con mal estado general, secreción o enrojecimiento progresivo de la herida, dolor que empeora claramente, inflamación o dolor nuevo en la pantorrilla, o tras una caída importante."}]},"knee":{"before":[{"q":"¿Cuándo suele recomendarse una prótesis de rodilla?","a":"Suele plantearse cuando el dolor, la rigidez y la pérdida de función por el deterioro de la rodilla limitan de forma importante las actividades cotidianas y los tratamientos conservadores ya no proporcionan un control suficiente."},{"q":"¿Mi prótesis será total o parcial?","a":"Depende de qué zonas de la rodilla estén dañadas, del estado de los ligamentos, de la anatomía y de otros factores clínicos. Una prótesis parcial sustituye solo el compartimento afectado; una total trata una afectación más extensa. La indicación se decide tras estudiar el caso."},{"q":"¿Qué pruebas y revisiones se hacen antes?","a":"La valoración preoperatoria revisa antecedentes, alergias y medicación y puede incluir analítica, tensión arterial, electrocardiograma u otras pruebas según el estado de salud, además de la valoración de anestesia."},{"q":"¿Tengo que suspender medicamentos antes de la cirugía?","a":"No deben suspenderse por iniciativa propia. Anticoagulantes, antiagregantes, tratamientos para la diabetes, antiinflamatorios o determinados suplementos pueden necesitar una pauta específica antes y después de la intervención."},{"q":"¿Qué ejercicios son útiles antes de una prótesis de rodilla?","a":"Suele ser útil mantener la movilidad que resulte tolerable y trabajar especialmente cuádriceps, extensión y flexión de rodilla, además de actividad aeróbica de bajo impacto cuando sea posible. El dolor y las indicaciones del equipo marcan el límite."},{"q":"¿Cómo preparo la casa para los primeros días?","a":"Es útil despejar zonas de paso, retirar obstáculos, preparar una silla estable, dejar objetos habituales al alcance y organizar ayuda, comidas y transporte. Si se han prescrito muletas u otras ayudas, conviene disponer de ellas antes del ingreso."},{"q":"¿La prótesis cambia si la operación se hace con Mako?","a":"No necesariamente. Mako ayuda a planificar y asistir determinados pasos de la cirugía, pero el tipo de implante se elige según la anatomía y las necesidades del caso. El cirujano controla el procedimiento y decide el plan definitivo."}],"during":[{"q":"¿Cuánto dura una operación de prótesis de rodilla?","a":"Muchas intervenciones se realizan aproximadamente en una o dos horas, aunque el tiempo puede variar según se trate de una prótesis total o parcial y según la complejidad de la cirugía."},{"q":"¿Qué partes de la rodilla se sustituyen?","a":"En una prótesis total se preparan las superficies dañadas del extremo del fémur y de la tibia para colocar componentes metálicos y un inserto de polietileno; en algunos casos se trata también la superficie de la rótula. En una prótesis parcial se sustituye únicamente el compartimento afectado."},{"q":"¿Estaré dormido durante la operación?","a":"Puede utilizarse anestesia general o anestesia regional/raquídea. Con anestesia regional es posible añadir sedación para que la persona esté relajada y somnolienta. La opción se decide con anestesia según las características del caso."},{"q":"¿Qué aporta Mako en una prótesis de rodilla?","a":"Cuando está indicado, permite trabajar sobre una planificación tridimensional y asistir al cirujano en la preparación del hueso y la colocación de los componentes conforme al plan. El cirujano mantiene el control y puede ajustar las decisiones durante la intervención."},{"q":"¿Cómo se controla el dolor al salir de quirófano?","a":"Habitualmente se combinan varias medidas: analgésicos de distintos tipos y, según el caso, técnicas regionales o infiltraciones. Un buen control del dolor facilita empezar a mover la rodilla y caminar de forma segura."},{"q":"¿Cuándo empezaré a caminar?","a":"La movilización suele comenzar pronto cuando el estado general lo permite. El equipo ayuda a ponerse de pie y a caminar con muletas o andador y enseña cómo realizar transferencias y desplazamientos de forma segura."},{"q":"¿Qué se valora antes de dar el alta?","a":"Se comprueba que el dolor esté razonablemente controlado, que la herida evolucione correctamente, que la persona pueda levantarse y desplazarse con seguridad y que no exista una complicación que requiera continuar ingresado. El alta suele producirse durante los primeros días, según la evolución."}],"after":[{"q":"¿Es normal que la rodilla esté hinchada y rígida?","a":"Sí. La inflamación, el calor local y la rigidez pueden persistir durante semanas y mejorar de forma gradual. La evolución debe vigilarse: un empeoramiento marcado, dolor nuevo en la pantorrilla, fiebre o cambios de la herida requieren valoración."},{"q":"¿Cuánto tengo que doblar la rodilla?","a":"No hay una cifra universal válida para todas las personas ni para todas las semanas. La prioridad es recuperar progresivamente la extensión y la flexión útil, siguiendo el ritmo indicado por fisioterapia y evitando forzar a través de un dolor intenso."},{"q":"¿Cuánto tiempo usaré muletas?","a":"El tiempo depende de la estabilidad, la fuerza, la calidad de la marcha y de si se trata de una prótesis total o parcial. La retirada de las ayudas debe ser progresiva y acordada con el equipo."},{"q":"¿Cuándo podré conducir?","a":"Depende de la rodilla operada, el tipo de vehículo, la fuerza, la movilidad, la capacidad de frenar con rapidez y la medicación. No se debe conducir mientras se tomen fármacos que disminuyan la capacidad de reacción y conviene contar con la autorización del equipo."},{"q":"¿Podré volver a arrodillarme?","a":"Algunas personas pueden arrodillarse cuando la herida está completamente curada, aunque puede resultar incómodo y es frecuente notar sensibilidad o adormecimiento alrededor de la cicatriz. Debe retomarse solo cuando el equipo confirme que es seguro."},{"q":"¿Cuándo podré volver al trabajo o hacer deporte?","a":"Depende de la exigencia laboral y de la recuperación de movilidad, fuerza y marcha. Las actividades de bajo impacto suelen ser más adecuadas al principio; los trabajos físicos y los deportes exigentes requieren una progresión más lenta y valoración individual."},{"q":"¿Qué síntomas deberían hacerme consultar?","a":"Dificultad para respirar, dolor torácico o desmayo requieren atención urgente. Debe contactarse con el equipo ante fiebre con empeoramiento general, secreción o enrojecimiento progresivo de la herida, dolor que aumenta claramente, inflamación o dolor nuevo en la pantorrilla, o después de una caída importante."}]}};
 
-const APP_VERSION = "0.9.0";
+const APP_VERSION = "0.9.1";
 let questionsTab = "before";
 let deferredInstallPrompt = null;
 let updateAvailableVersion = null;
 
 function safeJSON(key, fallback){
   try{ const raw=localStorage.getItem(key); return raw?JSON.parse(raw):fallback; }catch(e){ return fallback; }
+}
+function checklistState(){ return safeJSON("ddc_checklist_state",{hip:[],knee:[]}); }
+function checklistItemKey(stageId,item){
+  return stageId+"::"+(item[3]||item[0]+"::"+item[1]);
+}
+function isStageChecklistDone(stageId,item){
+  const state=checklistState();
+  const items=Array.isArray(state[profile.joint])?state[profile.joint]:[];
+  return items.includes(checklistItemKey(stageId,item));
+}
+function setStageChecklistDone(stageId,item,done){
+  const state=checklistState();
+  let items=Array.isArray(state[profile.joint])?[...state[profile.joint]]:[];
+  const key=checklistItemKey(stageId,item);
+  items=done
+    ? (items.includes(key)?items:[...items,key])
+    : items.filter(x=>x!==key);
+  state[profile.joint]=items;
+  localStorage.setItem("ddc_checklist_state",JSON.stringify(state));
 }
 function savedArticleIds(){ return safeJSON("ddc_saved_articles",[]); }
 function savedExerciseKeys(){ return safeJSON("ddc_saved_exercises",[]); }
@@ -2484,32 +2541,71 @@ function phaseChecklistHTML(phaseId){
     </div>`).join("")}</div></div>`;
 }
 
-function stageChecklistHTML(stageId){
+function stageChecklistItems(stageId){
   const stage=PROCESS_STAGES.find(s=>s.id===stageId);
-  if(!stage) return "";
+  if(!stage) return [];
   const seen=new Set();
-  const items=DATA[profile.joint].checklist
+  return DATA[profile.joint].checklist
     .filter(x=>stage.phases.includes(x[0]))
     .filter(x=>{
-      const key=x[1]+"|"+x[2];
+      const key=x[3]||x[1]+"|"+x[2];
       if(seen.has(key)) return false;
       seen.add(key);
       return true;
     });
-
+}
+function stageChecklistHTML(stageId){
+  const interactive=["prepare","finalweek","surgery"].includes(stageId);
+  const items=stageChecklistItems(stageId);
   if(!items.length) return "";
-  return `<div class="phase-checklist">
-    <h3>Para esta etapa</h3>
-    <div class="checklist">${items.map((x,i)=>`
+
+  if(!interactive){
+    return `<div class="phase-checklist"><h3>Para esta etapa</h3><div class="checklist">${items.map((x,i)=>`
       <div class="check-item">
         <div class="check-ui">${i+1}</div>
         <div class="check-copy">
           <div class="check-text">${x[1]}</div>
           <div class="check-note">${x[2]}</div>
         </div>
-      </div>`).join("")}
+      </div>`).join("")}</div></div>`;
+  }
+
+  const doneCount=items.filter(x=>isStageChecklistDone(stageId,x)).length;
+  const complete=doneCount===items.length;
+  return `<div class="phase-checklist" id="stageChecklist_${stageId}">
+    <h3>${stageId==="surgery"?"Antes de continuar":"Para esta etapa"}</h3>
+    <div class="check-progress">
+      <strong>${doneCount} de ${items.length} revisados</strong>
+      <span>${complete?"Todo revisado":"Toca cada punto cuando esté listo"}</span>
+    </div>
+    <div class="check-help">Esta lista sirve como guía personal de preparación. Marcar un punto no sustituye las indicaciones del equipo médico.</div>
+    <div class="checklist">${items.map((x,i)=>{
+      const done=isStageChecklistDone(stageId,x);
+      const itemId=x[3]||String(i);
+      return `<button type="button" class="check-item check-action ${done?"done":""}" aria-pressed="${done?"true":"false"}" aria-label="${done?"Marcar como pendiente":"Marcar como revisado"}: ${x[1]}" onclick="toggleStageChecklistItem('${stageId}','${itemId}')">
+        <div class="check-ui">${done?ICONS.check:(i+1)}</div>
+        <div class="check-copy">
+          <div class="check-text">${x[1]}</div>
+          <div class="check-note">${x[2]}</div>
+        </div>
+      </button>`;
+    }).join("")}
     </div>
   </div>`;
+}
+function toggleStageChecklistItem(stageId,itemId){
+  const items=stageChecklistItems(stageId);
+  const item=items.find((x,i)=>(x[3]||String(i))===itemId);
+  if(!item) return;
+  const done=isStageChecklistDone(stageId,item);
+  setStageChecklistDone(stageId,item,!done);
+
+  const current=document.getElementById("stageChecklist_"+stageId);
+  if(current){
+    const wrap=document.createElement("div");
+    wrap.innerHTML=stageChecklistHTML(stageId).trim();
+    current.replaceWith(wrap.firstElementChild);
+  }
 }
 
 function openStage(id){

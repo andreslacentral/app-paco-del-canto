@@ -23,3 +23,8 @@ Reemplaza/sube en la raíz del repositorio:
 - carpeta `assets/`
 
 GitHub Pages continuará utilizando la misma URL y la PWA instalada seguirá siendo la misma aplicación.
+
+
+## Versión 0.9.1
+
+Checklists interactivos y persistentes en las tres primeras etapas de Mi proceso.
