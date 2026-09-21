@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!DOCTYPE html>
 
 <html lang="es">
 <head>
@@ -8,7 +7,6 @@
 <meta content="yes" name="apple-mobile-web-app-capable"/>
 <meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"/>
 <meta content="telephone=no" name="format-detection"/>
-
 <meta content="yes" name="apple-mobile-web-app-capable"/>
 <meta content="default" name="apple-mobile-web-app-status-bar-style"/>
 <meta content="telephone=yes" name="format-detection"/>
@@ -503,7 +501,7 @@
       display:none;
       box-shadow:0 -8px 26px rgba(20,47,57,.08);
     }
-    .bottom-nav.visible{display:grid;grid-template-columns:repeat(5,1fr)}
+    .bottom-nav.visible{display:grid;grid-template-columns:repeat(6,1fr)}
     .nav-btn{
       border:0;
       background:none;
@@ -1305,6 +1303,26 @@
       }
     }
 
+    /* Preguntas, guardados, actualizaciones e instalación */
+    .faq-intro{background:linear-gradient(145deg,#e9f6f7,#f9fcfc);border:1px solid #cfe8eb;border-radius:20px;padding:16px;margin-bottom:14px}
+    .faq-intro h3{margin:0 0 6px;font-size:16px}.faq-intro p{margin:0;font-size:13.5px;line-height:1.5}
+    .faq-count{font-size:11px;font-weight:850;color:var(--brand-dark);text-transform:uppercase;letter-spacing:.06em;margin:16px 2px 8px}
+    .save-wrap{position:relative;margin-bottom:10px}.save-wrap>.article,.save-wrap>.exercise-card{margin-bottom:0!important}
+    .save-toggle{position:absolute;right:11px;top:11px;z-index:2;width:38px;height:38px;border-radius:12px;border:1px solid #d9e6e8;background:rgba(255,255,255,.96);display:grid;place-items:center;color:var(--brand-dark);box-shadow:0 4px 12px rgba(20,47,57,.08)}
+    .save-toggle svg{width:20px;height:20px}.save-toggle.saved{background:var(--brand);color:#fff;border-color:var(--brand)}
+    .save-detail{display:flex;align-items:center;justify-content:space-between;gap:10px;border:1px solid var(--line);background:#fff;border-radius:16px;padding:11px 12px;margin:0 0 16px}
+    .save-detail strong{font-size:13px}.save-detail small{display:block;color:var(--muted);font-size:10.5px;margin-top:2px}
+    .save-detail button{border:0;background:var(--brand-pale);color:var(--brand-dark);border-radius:12px;min-width:42px;height:42px;display:grid;place-items:center}
+    .save-detail button.saved{background:var(--brand);color:#fff}.save-detail button svg{width:20px;height:20px}
+    .saved-empty{border:1px dashed #c9d9dc;border-radius:18px;padding:20px 16px;text-align:center;color:var(--muted);background:#fff}
+    .contact-choice{border-radius:20px;padding:16px;margin-top:10px;border:1px solid var(--line);background:#fff}
+    .contact-choice.emergency{border-color:#efc7ca;background:#fff7f7}.contact-choice.ordinary{border-color:#c9e4e7;background:#f4fbfb}
+    .contact-choice h3{margin:0 0 7px}
+    .status-row{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted);margin-top:10px}
+    .status-dot{width:8px;height:8px;border-radius:50%;background:#75a88e}.status-dot.offline{background:#d49a4b}
+    .version-badge{display:inline-flex;border-radius:999px;background:#edf5f6;color:var(--brand-dark);padding:5px 8px;font-size:10px;font-weight:850;letter-spacing:.04em}
+    @media(max-width:374px){.nav-icon-premium{width:40px;height:40px}.nav-btn{font-size:8.6px}}
+
   </style>
 <meta content="#1f2323" name="theme-color"/><meta content="yes" name="mobile-web-app-capable"/><meta content="Del Canto" name="application-name"/><link href="./manifest.webmanifest" rel="manifest"/><link href="./icons/favicon-48.png" rel="icon" sizes="48x48" type="image/png"/></head>
 <body>
@@ -1342,7 +1360,7 @@
 <input autocomplete="given-name" id="profileName" placeholder="Ej. María" type="text"/>
 </div>
 <div class="field">
-<label>Fecha de intervención</label>
+<label>Fecha de intervención (pasada o futura)</label>
 <input id="surgeryDate" onchange="datePicked()" type="date"/>
 </div>
 <button class="no-date-choice" data-action="no-date" id="noDateChoice" type="button">Todavía no tengo fecha</button>
@@ -1361,7 +1379,7 @@
 <section class="screen active" id="homeScreen"></section>
 <section class="screen" id="processScreen"></section>
 <section class="screen" id="exerciseScreen"></section>
-<section class="screen" id="guideScreen"></section>
+<section class="screen" id="questionsScreen"></section><section class="screen" id="guideScreen"></section>
 <section class="screen" id="moreScreen"></section>
 </main>
 <nav aria-label="Navegación principal" class="bottom-nav" id="bottomNav">
@@ -1369,7 +1387,7 @@
 <button class="nav-btn" data-screen="process" onclick="goScreen('process')"></button>
 <button class="nav-btn" data-screen="exercise" onclick="goScreen('exercise')"></button>
 <button class="nav-btn" data-screen="guide" onclick="goScreen('guide')"></button>
-<button class="nav-btn" data-screen="more" onclick="goScreen('more')"></button>
+<button class="nav-btn" data-screen="questions" onclick="goScreen('questions')"></button><button class="nav-btn" data-screen="more" onclick="goScreen('more')"></button>
 </nav>
 <aside aria-hidden="true" class="detail" id="detailPage">
 <div class="detail-head">
@@ -1468,6 +1486,7 @@ const NAV_PREMIUM = {
   guide:"data:image/webp;base64,UklGRiIFAABXRUJQVlA4IBYFAACQIACdASqEAIQAPkkijkUioiESyb0wKASEs4N8DgzK0a0cldvPoAfsB1x/7jekcf9K+pXrLLGmrI94rhRcBe72QEDbzIEKD4TsOYIXDz+/yfv7pEUP+Wc8raIj6n2bhbMr4cyHhUGLbScNgXTJZXvzVGotnvSUF74VGq3WcV410nAm+h+re63Nk4o1U3u1zcBfhYJrta5Li7zrzvvijeLdMeo5j6V2iOxSWV4RYyv2oY0zG7ndsg5NwTKAsEj38gPXas8RvE1nw7wdkgNg/uZFs/L28efwERxZYq/GP/bmKFQ6c/dupfZwpuRCUV/NbZOW302SxcQcg8qz1MWeuTcwTb7Hx6yXCNJ3z073AAD+/Zni0nytb2IwVsNzlg/uhuYagTb9zeV2DnKOWICPV3ZgCuEBO4iTes4harklDkt1OhZ3VMnWKaVjZUc/6qLz+RVfF+zlD0FfzVaEOYJtGqdqU5dJzL98QOk2ugDA3ofk8vVO47UXsLyYy44m9uTP7Tb0ut81DIaYvHeQ3/A6+deSKhQSYKan4tbDbSw1xenwL8HvFv1/f/Lz93xXS9gvn/miL8iwXtUbpmvWZt5U62Cq1qx+QyEcGck9ZLq5UkWIf5ORCst8x2eDgYM7e7sjGT1PDamxSSY9IrfnSzyQj9QKuljziEIi0m2Gyj2GRX+u1Yivf3sX3lD3aF+9YcZK7HsLmONI0OlUYn9oa4TYq9YFvVDwqkQoZD+kBmyJHLDQsQfgQDRvGOHCbehzUWiKGnfMfLwfrjZcKiCF+rHT5MsguLRY4ADhGbGHJJBqiAPvEcRPCl/cwWlglx5z4hFWjPRKcO00B0xlSYb5mahKT3xo3jMwT08pMa/wUeYe2YNme7wSUD++1naygIyLCPuuHz6Afnc08xfA4yLxnZfHjzPN94XLE2ux+RexT6MJrmyhBgBuTcbcz66nHGMnqG4ZFqVpD2chfpofkMqHa/wnFtGWllGpj2KFSa2ekVo8++kWjZMKIP+khayxa2UO7MU8N1HhYvCL9bGVvCmf5B4OOsrabtz7G8uiO+iRZ7b95mF6r19EjM2zSxFKvVzIKDdgZEL/gK95eaDiW7/yo17Ho/H/NA7CijQ+ZgdfXuwPKrjEEo4Ob0w1ZBYIFZpTz0FUk7TJG7tE6zUecHeTI/4XImFcqi+IJUWmN4KrloGPgG51XmHpeyn1GDXBHT1xgVocN72s/5V0yody0gHu/UxMLri3ValLK8i6RIrQguyN/ic0ssN68jTB5Ie0gtGwJkylVoTYI07mH4cx19PiXdrl3jexNMuEh49UtnpU2iPcxTAIiHtcUzLX2hiWy6+nP+P1Lr3i28wB5pNbWt1AHlAdopFNjpOEQnYGEjFBdDAPt+NJOGV9PvA52VPOdbZDR6MRPMHA+0B3sPQmJ0JFMtcx55MmMEZF3/AntGPZ4v3uDnk5zvIi071C9lMFHC0BK/eWbaSB0zrmDMZ7B185eppPMxc8Vone9WNSuoXoYhgJPqz6yvr68j4oP+m+pxMyLo/P/O9O7HXZWqGYVb31BdEm32BJheQ8tuKDKI96fjxKzct7q8BaXcv8dam5BBN3t3Jzfw538GxQOr3j+cjSimf6WIwu/0SqC3yPT41It6q9MDF4w23L4iV/1g9qhQMBRPaNcShMXQX1jAI5PIKIyk4NHv+i8FCQQboUCmSsvTF+nQfJWce4vPs3iFxesX7+hdgPW8MrQqaQAAA=",
   more:"data:image/webp;base64,UklGRqoEAABXRUJQVlA4IJ4EAACwIwCdASqEAIQAPkkijUUioiEhKLUZoFAJCWcDvr2xbb3AMuN8gDrZvKAJpkVxFXRkj6570j6SqYPOYFRmQLR23XDW9NB2PEm+j/wp1KS0C0he+TMxrs3TlXRjbsDanTg2/WDD53cgL6nCrwKDZ9EpkuzlEBgCkJ4Yo+hRHXwOJAfw4JVKYe3LVzVpxX5IsOqq21fjb9BmAPjeRVu1keuQbM29wRwws3D0aQAcdIRGGdkVbKFU21Zah/ytJpRVXq6EB/uyM/qj1BdfceJOhBBPEXdyL48ln8XXxexqZmJu9rfNU5jBLL1fETC+TlyEymX6FpeGzJxT5tcHamFjzuqwzxM63ZnqT/UMeVuObi8CEWDf6PMX1heHOhJFiHNahnSYOeZJHQgA/v0WBeM5UnWPOtT1asJ/GypcuzPYi95tU1EsTMSO+yN4p1IobHZewfrmDoQBZJw8y/JqK48ZuQvciNGujKwbwWlG9zwcGZX7IlOn/WOK16bvS4f0M+paa2hxRVQudiOiUYxJefjPTcGYjTTUFR8U3cL/3/Od7OXh2PjoCA6AU3ahIEKJanqpexuUSFQqr22HdGywTp1HE74wzb7Zisn59+OAx3uim1/x5r66logNM/0J6SavakVlt2w48Xn50PzXcev18H52FqHyMRoSNX1zNzgxAtcmV1LWPEq1k92x46R2iRs4hZ8uBqg2ndZL4xEH4/bq24EL4dpcZgz0sFWsPjhYkVrzxxa6xCYkNzI5uQpRLWzxoppTzTmFQKZ1zo+8tg5o4b7UklQthouP2XnPhuUBaeI58Dad9UACDX5e+r5/b/yb7lHa+RgTmpEYpdFtRHfWo30v5rS29+kTVIRA72xkY/w4xj/Nkj+gTh7/mucYlYvTv9MJXnATZjoG7YOZ+sERPgfavA7E0o0FEhGrHGOv+k4/TZ7kVWsF5Ak3/fsGwTYdBMKFg15BGTx1p64s6lOAcFDyQSzywZXIiiIIcJ8mVgsThfNqUfOAr3VcLQbIYOuP0Yxi2ZpeZMh1BpHNF7HiCiPV9PWiRBY4ZhvrykzjKvAmIXWOMSoqrqcJ9CAiyv0I9tgZGutucB1C8+SCWingImhrQB9QL7Jx0GC0jq7cbEz1l69WqRKyg19d/803Cl94GZGcKOQAMROr2GgwMrDHcSjaFhmXI+UWMwOVTUI1BpBzmqko7sOj8mDPoTTtggoyl90zPjIL1T4v6GZLhma4PWUI3+nxTIUhZjhirlXDc4FJOQygZPizMpMpGFhMiFoqPftaPwA3WqBtr6coSSh5Tcgd16fDhdk7NwGLSGPC6ALlGCcEVDjz72KYgNnbOEEkMaftrm5xYx3ynC9ZzkadD30gI9u658z95YbbYrIrHXFnazIOr/aurpSePPGASuW5JsL0uC9ofugDEcxjI5RhpOa7K6X5UJOq/hX0C+KP7wX/L8wt29xPw7U5Tzd3lFwGEm/tlPcJkYDfn0PAm9PMMbr1AOA8qIZ+uY8U/F3C02iJgTiYBh5w714hNsXdamUqOxX6fxXE67LaWsLLOKiw5oPGg2t04eXhy9YFTznf4KAAAAA="
 };
+NAV_PREMIUM.questions="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4NCIgaGVpZ2h0PSI4NCIgdmlld0JveD0iMCAwIDg0IDg0Ij48cmVjdCB3aWR0aD0iODQiIGhlaWdodD0iODQiIHJ4PSIyNCIgZmlsbD0iI2VhZjZmNyIvPjxwYXRoIGQ9Ik00MiAxOWMtMTIuNyAwLTIzIDktMjMgMjAuMSAwIDYuMiAzLjIgMTEuOCA4LjQgMTUuNUwyNSA2NWwxMS02LjNjMS45LjQgMy45LjYgNiAuNiAxMi43IDAgMjMtOSAyMy0yMC4yUzU0LjcgMTkgNDIgMTlaIiBmaWxsPSJub25lIiBzdHJva2U9IiMwNzg5OWIiIHN0cm9rZS13aWR0aD0iNCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPjxwYXRoIGQ9Ik0zNS44IDM0LjdjLjYtNC4yIDMuNi02LjcgNy42LTYuNyA0LjIgMCA3LjIgMi41IDcuMiA2LjIgMCAzLjItMS43IDQuOS00LjYgNi41LTIuNyAxLjUtMy44IDIuOC0zLjggNS42di44IiBmaWxsPSJub25lIiBzdHJva2U9IiMwNzg5OWIiIHN0cm9rZS13aWR0aD0iNCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+PGNpcmNsZSBjeD0iNDIuMiIgY3k9IjUzLjYiIHI9IjIuNSIgZmlsbD0iIzA3ODk5YiIvPjwvc3ZnPg==";
 
 const DATA = {
   hip:{
@@ -1766,6 +1785,12 @@ const BLOG_ARTICLES = [{"id":"blog_live_arthrosis","cat":"Artrosis","joints":["h
 // add fallback icon aliases
 ICONS.briefcase = `<svg viewBox="0 0 24 24" fill="none"><rect x="3" y="7" width="18" height="13" rx="2.5" stroke="currentColor" stroke-width="1.8"/><path d="M9 7V4h6v3M3 12h18M10 12v2h4v-2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>`;
 
+ICONS.bookmark = `<svg viewBox="0 0 24 24" fill="none"><path d="M6 4.5A1.5 1.5 0 0 1 7.5 3h9A1.5 1.5 0 0 1 18 4.5V21l-6-3.8L6 21V4.5Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>`;
+ICONS.bookmarkFill = `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M7.5 3h9A1.5 1.5 0 0 1 18 4.5V21l-6-3.8L6 21V4.5A1.5 1.5 0 0 1 7.5 3Z"/></svg>`;
+ICONS.refresh = `<svg viewBox="0 0 24 24" fill="none"><path d="M20 7v5h-5M4 17v-5h5M18.5 9A7 7 0 0 0 6.7 6.7L4 9M5.5 15A7 7 0 0 0 17.3 17.3L20 15" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+ICONS.install = `<svg viewBox="0 0 24 24" fill="none"><path d="M12 3v12m0 0 4-4m-4 4-4-4M5 18v3h14v-3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+ICONS.trash = `<svg viewBox="0 0 24 24" fill="none"><path d="M4 7h16M9 3h6l1 4H8l1-4Zm-2 4 1 14h8l1-14M10 11v6M14 11v6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+
 const FAQ = [
   ["¿Cuánto tiempo necesitaré muletas?","El tiempo varía según la articulación, la técnica y la evolución. La retirada debe ser progresiva y realizarse cuando el equipo considere que la marcha es estable y segura."],
   ["¿Cuándo podré conducir?","Depende del lado operado, el tipo de vehículo, la movilidad, la fuerza y la medicación. Debe existir capacidad para realizar una frenada de emergencia y el cirujano debe autorizar la vuelta a la conducción."],
@@ -1776,6 +1801,62 @@ const FAQ = [
   ["¿Es normal la inflamación?","Una cierta inflamación alrededor de la articulación operada es frecuente al inicio. Debe vigilarse su evolución. Un aumento brusco, especialmente si se acompaña de dolor de pantorrilla, falta de aire o mal estado general, requiere valoración."],
   ["¿Cuándo se revisa la prótesis?","El calendario de revisiones depende de cada caso y del protocolo del centro. Las fechas concretas deben figurar en el informe de alta o indicarse en consulta."]
 ];
+
+const PATIENT_FAQ = {"hip":{"before":[{"q":"¿Cuándo suele recomendarse una prótesis de cadera?","a":"Suele plantearse cuando el dolor, la rigidez o la pérdida de función por el deterioro de la articulación limitan de forma importante la vida diaria y las medidas conservadoras ya no ofrecen un alivio suficiente. El objetivo principal es reducir el dolor y mejorar la función."},{"q":"¿Qué pruebas suelen hacerse antes de la operación?","a":"La valoración preoperatoria revisa antecedentes, alergias y medicación. Según la edad y el estado de salud puede incluir analítica, tensión arterial, electrocardiograma u otras pruebas, además de la valoración de anestesia. El equipo indicará cuáles son necesarias en cada caso."},{"q":"¿Tengo que suspender algún medicamento?","a":"No conviene retirar medicación por cuenta propia. Anticoagulantes, antiagregantes, algunos tratamientos para la diabetes, antiinflamatorios o suplementos pueden requerir ajustes. Deben seguirse las instrucciones concretas entregadas por cirugía y anestesia."},{"q":"¿Merece la pena hacer ejercicio antes de operarme?","a":"Mantenerse activo dentro de lo tolerable y trabajar fuerza, movilidad y capacidad aeróbica puede facilitar la recuperación inicial. Los ejercicios previos deben adaptarse al dolor y a las indicaciones del equipo."},{"q":"¿Cómo puedo preparar la casa para la vuelta?","a":"Conviene retirar obstáculos y alfombras que puedan favorecer tropiezos, dejar los objetos de uso frecuente al alcance, disponer de un asiento estable y organizar ayuda, comidas y transporte para los primeros días. Si se recomiendan ayudas técnicas, es útil tenerlas preparadas con antelación."},{"q":"¿Qué tipo de anestesia se utiliza?","a":"Una prótesis de cadera puede realizarse con anestesia general o con anestesia regional/raquídea, en ocasiones acompañada de sedación. La elección depende del caso y se decide con el equipo de anestesia."},{"q":"¿La prótesis es diferente si la cirugía se hace con Mako?","a":"No necesariamente. La cirugía robótica modifica sobre todo la forma de planificar y asistir determinados pasos de la intervención. El modelo de implante se selecciona según la anatomía, las necesidades del paciente y el plan quirúrgico."}],"during":[{"q":"¿Cuánto dura una operación de prótesis de cadera?","a":"Muchas intervenciones se sitúan aproximadamente entre una y dos horas, aunque la duración puede variar según la anatomía, la técnica, el tipo de prótesis y la complejidad del caso."},{"q":"¿Qué ocurre durante la intervención?","a":"En una prótesis total se retiran las superficies dañadas de la articulación: se sustituye la cabeza del fémur y se prepara el acetábulo para colocar los componentes que formarán la nueva articulación. Después se comprueba la estabilidad y se cierra la herida."},{"q":"¿Estaré despierto durante la cirugía?","a":"Depende de la anestesia acordada. Con anestesia general la persona permanece dormida. Con anestesia regional puede mantenerse despierta o recibir sedación para estar relajada y somnolienta."},{"q":"¿Qué hace exactamente el sistema Mako?","a":"Cuando está indicado, Mako ayuda a trabajar sobre una planificación tridimensional y asiste al cirujano en la ejecución de determinados pasos y en la colocación de los componentes. El cirujano mantiene el control y toma las decisiones durante todo el procedimiento."},{"q":"¿Cómo se controla el dolor al terminar?","a":"Habitualmente se utiliza un enfoque combinado con diferentes analgésicos y, según el caso, técnicas regionales o medicación administrada durante la cirugía. El objetivo es controlar el dolor lo suficiente para facilitar el descanso y empezar a movilizarse con seguridad."},{"q":"¿Cuándo podré ponerme de pie o empezar a caminar?","a":"Si la situación médica lo permite, la movilización suele comenzar muy pronto, a menudo el mismo día o al día siguiente. Enfermería y fisioterapia ayudan a levantarse y a caminar con las ayudas necesarias."},{"q":"¿Cuándo se puede volver a casa?","a":"El alta depende de la evolución: dolor razonablemente controlado, herida sin problemas relevantes, capacidad para levantarse y caminar con seguridad, tolerancia a la alimentación y ausencia de complicaciones que requieran vigilancia. Muchas personas reciben el alta durante los primeros días."}],"after":[{"q":"¿Es normal tener dolor e inflamación después?","a":"Es frecuente presentar dolor, inflamación y cierta sensación de rigidez al inicio. Lo importante es que la evolución sea progresiva. Un aumento claro del dolor o de la inflamación, especialmente si aparece de forma brusca o se acompaña de otros síntomas, debe consultarse."},{"q":"¿Cuándo puedo ducharme y cómo cuido la herida?","a":"Depende del tipo de apósito y del protocolo de curas. Deben seguirse las instrucciones del alta sobre cuándo puede mojarse la zona. En general, no se recomienda sumergir la herida en bañera o piscina hasta que esté cicatrizada y el equipo lo autorice."},{"q":"¿Cuánto tiempo necesitaré muletas?","a":"No existe un plazo único. La retirada depende de la carga permitida, la fuerza, el equilibrio y la calidad de la marcha. Debe hacerse de forma progresiva siguiendo las indicaciones de cirugía o fisioterapia."},{"q":"¿Tengo que dormir o sentarme de una forma concreta?","a":"Las precauciones pueden variar según el abordaje quirúrgico y las características del caso. No todas las personas reciben las mismas restricciones. Las indicaciones específicas del cirujano sobre posiciones, flexión de cadera y movimientos a evitar son las que deben prevalecer."},{"q":"¿Cuándo podré volver a conducir?","a":"Depende del lado operado, el tipo de vehículo, la fuerza, la movilidad, el tiempo de reacción y la medicación. No debe conducirse mientras se tomen fármacos que reduzcan la capacidad de reacción. La vuelta debe confirmarse con el equipo cuando sea posible realizar una frenada de emergencia con seguridad."},{"q":"¿Cuándo podré volver al trabajo o hacer deporte?","a":"La reincorporación depende de las exigencias del trabajo y de la evolución. Las actividades de bajo impacto suelen retomarse antes que los trabajos físicos o los deportes exigentes. La progresión debe individualizarse y comentarse en las revisiones."},{"q":"¿Qué síntomas deberían hacerme consultar?","a":"Dificultad para respirar, dolor torácico, desmayo o una situación que parezca una emergencia requieren atención urgente. También debe contactarse con el equipo ante fiebre con mal estado general, secreción o enrojecimiento progresivo de la herida, dolor que empeora claramente, inflamación o dolor nuevo en la pantorrilla, o tras una caída importante."}]},"knee":{"before":[{"q":"¿Cuándo suele recomendarse una prótesis de rodilla?","a":"Suele plantearse cuando el dolor, la rigidez y la pérdida de función por el deterioro de la rodilla limitan de forma importante las actividades cotidianas y los tratamientos conservadores ya no proporcionan un control suficiente."},{"q":"¿Mi prótesis será total o parcial?","a":"Depende de qué zonas de la rodilla estén dañadas, del estado de los ligamentos, de la anatomía y de otros factores clínicos. Una prótesis parcial sustituye solo el compartimento afectado; una total trata una afectación más extensa. La indicación se decide tras estudiar el caso."},{"q":"¿Qué pruebas y revisiones se hacen antes?","a":"La valoración preoperatoria revisa antecedentes, alergias y medicación y puede incluir analítica, tensión arterial, electrocardiograma u otras pruebas según el estado de salud, además de la valoración de anestesia."},{"q":"¿Tengo que suspender medicamentos antes de la cirugía?","a":"No deben suspenderse por iniciativa propia. Anticoagulantes, antiagregantes, tratamientos para la diabetes, antiinflamatorios o determinados suplementos pueden necesitar una pauta específica antes y después de la intervención."},{"q":"¿Qué ejercicios son útiles antes de una prótesis de rodilla?","a":"Suele ser útil mantener la movilidad que resulte tolerable y trabajar especialmente cuádriceps, extensión y flexión de rodilla, además de actividad aeróbica de bajo impacto cuando sea posible. El dolor y las indicaciones del equipo marcan el límite."},{"q":"¿Cómo preparo la casa para los primeros días?","a":"Es útil despejar zonas de paso, retirar obstáculos, preparar una silla estable, dejar objetos habituales al alcance y organizar ayuda, comidas y transporte. Si se han prescrito muletas u otras ayudas, conviene disponer de ellas antes del ingreso."},{"q":"¿La prótesis cambia si la operación se hace con Mako?","a":"No necesariamente. Mako ayuda a planificar y asistir determinados pasos de la cirugía, pero el tipo de implante se elige según la anatomía y las necesidades del caso. El cirujano controla el procedimiento y decide el plan definitivo."}],"during":[{"q":"¿Cuánto dura una operación de prótesis de rodilla?","a":"Muchas intervenciones se realizan aproximadamente en una o dos horas, aunque el tiempo puede variar según se trate de una prótesis total o parcial y según la complejidad de la cirugía."},{"q":"¿Qué partes de la rodilla se sustituyen?","a":"En una prótesis total se preparan las superficies dañadas del extremo del fémur y de la tibia para colocar componentes metálicos y un inserto de polietileno; en algunos casos se trata también la superficie de la rótula. En una prótesis parcial se sustituye únicamente el compartimento afectado."},{"q":"¿Estaré dormido durante la operación?","a":"Puede utilizarse anestesia general o anestesia regional/raquídea. Con anestesia regional es posible añadir sedación para que la persona esté relajada y somnolienta. La opción se decide con anestesia según las características del caso."},{"q":"¿Qué aporta Mako en una prótesis de rodilla?","a":"Cuando está indicado, permite trabajar sobre una planificación tridimensional y asistir al cirujano en la preparación del hueso y la colocación de los componentes conforme al plan. El cirujano mantiene el control y puede ajustar las decisiones durante la intervención."},{"q":"¿Cómo se controla el dolor al salir de quirófano?","a":"Habitualmente se combinan varias medidas: analgésicos de distintos tipos y, según el caso, técnicas regionales o infiltraciones. Un buen control del dolor facilita empezar a mover la rodilla y caminar de forma segura."},{"q":"¿Cuándo empezaré a caminar?","a":"La movilización suele comenzar pronto cuando el estado general lo permite. El equipo ayuda a ponerse de pie y a caminar con muletas o andador y enseña cómo realizar transferencias y desplazamientos de forma segura."},{"q":"¿Qué se valora antes de dar el alta?","a":"Se comprueba que el dolor esté razonablemente controlado, que la herida evolucione correctamente, que la persona pueda levantarse y desplazarse con seguridad y que no exista una complicación que requiera continuar ingresado. El alta suele producirse durante los primeros días, según la evolución."}],"after":[{"q":"¿Es normal que la rodilla esté hinchada y rígida?","a":"Sí. La inflamación, el calor local y la rigidez pueden persistir durante semanas y mejorar de forma gradual. La evolución debe vigilarse: un empeoramiento marcado, dolor nuevo en la pantorrilla, fiebre o cambios de la herida requieren valoración."},{"q":"¿Cuánto tengo que doblar la rodilla?","a":"No hay una cifra universal válida para todas las personas ni para todas las semanas. La prioridad es recuperar progresivamente la extensión y la flexión útil, siguiendo el ritmo indicado por fisioterapia y evitando forzar a través de un dolor intenso."},{"q":"¿Cuánto tiempo usaré muletas?","a":"El tiempo depende de la estabilidad, la fuerza, la calidad de la marcha y de si se trata de una prótesis total o parcial. La retirada de las ayudas debe ser progresiva y acordada con el equipo."},{"q":"¿Cuándo podré conducir?","a":"Depende de la rodilla operada, el tipo de vehículo, la fuerza, la movilidad, la capacidad de frenar con rapidez y la medicación. No se debe conducir mientras se tomen fármacos que disminuyan la capacidad de reacción y conviene contar con la autorización del equipo."},{"q":"¿Podré volver a arrodillarme?","a":"Algunas personas pueden arrodillarse cuando la herida está completamente curada, aunque puede resultar incómodo y es frecuente notar sensibilidad o adormecimiento alrededor de la cicatriz. Debe retomarse solo cuando el equipo confirme que es seguro."},{"q":"¿Cuándo podré volver al trabajo o hacer deporte?","a":"Depende de la exigencia laboral y de la recuperación de movilidad, fuerza y marcha. Las actividades de bajo impacto suelen ser más adecuadas al principio; los trabajos físicos y los deportes exigentes requieren una progresión más lenta y valoración individual."},{"q":"¿Qué síntomas deberían hacerme consultar?","a":"Dificultad para respirar, dolor torácico o desmayo requieren atención urgente. Debe contactarse con el equipo ante fiebre con empeoramiento general, secreción o enrojecimiento progresivo de la herida, dolor que aumenta claramente, inflamación o dolor nuevo en la pantorrilla, o después de una caída importante."}]}};
+
+const APP_VERSION = "0.9.0";
+let questionsTab = "before";
+let deferredInstallPrompt = null;
+let updateAvailableVersion = null;
+
+function safeJSON(key, fallback){
+  try{ const raw=localStorage.getItem(key); return raw?JSON.parse(raw):fallback; }catch(e){ return fallback; }
+}
+function savedArticleIds(){ return safeJSON("ddc_saved_articles",[]); }
+function savedExerciseKeys(){ return safeJSON("ddc_saved_exercises",[]); }
+function isArticleSaved(id){ return savedArticleIds().includes(id); }
+function exerciseKey(joint,index){ const x=DATA[joint]?.exercises?.[index]; return x?joint+"::"+x.title:""; }
+function isExerciseSaved(joint,index){ return savedExerciseKeys().includes(exerciseKey(joint,index)); }
+function bookmarkIcon(saved){ return saved?ICONS.bookmarkFill:ICONS.bookmark; }
+function toggleArticleSaved(id,rerender=true){
+  let ids=savedArticleIds(); const saved=ids.includes(id);
+  ids=saved?ids.filter(x=>x!==id):[...ids,id];
+  localStorage.setItem("ddc_saved_articles",JSON.stringify(ids));
+  toast(saved?"Eliminado de guardados":"Guardado");
+  if(rerender) renderScreen(currentScreen);
+  return !saved;
+}
+function toggleExerciseSaved(joint,index,rerender=true){
+  const key=exerciseKey(joint,index); if(!key) return false;
+  let ids=savedExerciseKeys(); const saved=ids.includes(key);
+  ids=saved?ids.filter(x=>x!==key):[...ids,key];
+  localStorage.setItem("ddc_saved_exercises",JSON.stringify(ids));
+  toast(saved?"Eliminado de guardados":"Guardado");
+  if(rerender) renderScreen(currentScreen);
+  return !saved;
+}
+function updateArticleSaveDetail(id){
+  const btn=document.getElementById("detailSaveArticle"); if(!btn) return;
+  const saved=isArticleSaved(id); btn.classList.toggle("saved",saved); btn.innerHTML=bookmarkIcon(saved);
+  btn.setAttribute("aria-label",saved?"Quitar de guardados":"Guardar");
+  const label=document.getElementById("detailSaveArticleLabel"); if(label) label.textContent=saved?"Guardado":"Guardar para después";
+}
+function updateExerciseSaveDetail(joint,index){
+  const btn=document.getElementById("detailSaveExercise"); if(!btn) return;
+  const saved=isExerciseSaved(joint,index); btn.classList.toggle("saved",saved); btn.innerHTML=bookmarkIcon(saved);
+  btn.setAttribute("aria-label",saved?"Quitar de guardados":"Guardar");
+  const label=document.getElementById("detailSaveExerciseLabel"); if(label) label.textContent=saved?"Guardado":"Guardar ejercicio";
+}
+function flattenPatientFAQs(joint=profile.joint){
+  const groups=PATIENT_FAQ[joint]||{};
+  return Object.entries(groups).flatMap(([stage,items])=>items.map((x,i)=>({...x,stage,index:i})));
+}
+function isStandalone(){ return window.matchMedia("(display-mode: standalone)").matches || window.navigator.standalone===true; }
+function onlineStatusHTML(){
+  const on=navigator.onLine;
+  return `<div class="status-row"><span class="status-dot ${on?"":"offline"}"></span>${on?"Con conexión · contenido también disponible sin conexión":"Sin conexión · puedes seguir consultando la guía"}</div>`;
+}
+
 
 
 function syncIOSViewport(){
@@ -1860,6 +1941,7 @@ function nav(){
     ["home","Home"],
     ["process","Mi proceso"],
     ["exercise","Ejercicios"],
+    ["questions","Preguntas"],
     ["guide","Artículos"],
     ["more","Más"]
   ];
@@ -1966,13 +2048,15 @@ function launch(){
   document.getElementById("app").hidden=false;
   document.getElementById("bottomNav").classList.add("visible");
   renderAll();goScreen("home",false);
+  setTimeout(()=>checkForUpdates(false),1800);
 }
 function resetApp(){
-  if(confirm("¿Quieres borrar la configuración de esta demo y empezar de nuevo?")){
-    localStorage.removeItem("ddc_profile");
-    localStorage.removeItem("ddc_checks");
-    location.reload();
-  }
+  const ok=confirm("Se borrarán de este dispositivo tu nombre, articulación, fecha de cirugía, guardados y cualquier otro dato local de esta app. La aplicación seguirá instalada. ¿Quieres continuar?");
+  if(!ok) return;
+  Object.keys(localStorage)
+    .filter(key=>key.startsWith("ddc_"))
+    .forEach(key=>localStorage.removeItem(key));
+  location.reload();
 }
 function resetMainScroll(){
   const phone=document.querySelector(".phone");
@@ -1986,6 +2070,7 @@ function renderScreen(screen){
     home:renderHome,
     process:renderProcess,
     exercise:renderExercises,
+    questions:renderQuestions,
     guide:renderGuide,
     more:renderMore
   };
@@ -2311,7 +2396,7 @@ function renderHome(){
 
       <div class="section-head"><h2>Tu cirujano</h2></div>
       <div class="card doctor-card">
-        <div class="doctor-img"><img src="https://protesisdecadera.es/wp-content/uploads/2021/08/PACO-DEL-CANTO-SOBRE-MI-02.jpg" alt="Dr. Francisco del Canto en consulta" onerror="this.style.display='none'"></div>
+        <div class="doctor-img"><img src="https://protesisdecadera.es/wp-content/uploads/2021/08/PACO-DEL-CANTO-SOBRE-MI-02.jpg" alt="Dr. Francisco del Canto en consulta" onerror="if(!this.dataset.fallback){this.dataset.fallback='1';this.src='./assets/doctor-placeholder.png';}"></div>
         <div class="inner">
           <div class="doctor-meta">Dr. Francisco del Canto</div>
           <h3>Especialista en cirugía de cadera y rodilla</h3>
@@ -2692,10 +2777,17 @@ function renderExercises(){
   const groups=[...new Set(list.map(x=>x.group))];
   const groupedHTML=groups.map(group=>`
     <div class="exercise-group-title">${group}</div>
-    ${list.filter(x=>x.group===group).map(x=>`<button class="card exercise-card clickable" style="width:100%;text-align:left;margin-bottom:10px" onclick="openExercise(${DATA[profile.joint].exercises.indexOf(x)})">
-      ${exerciseThumb(x)}
-      <div class="exercise-body"><h3>${x.title}</h3><p>${x.desc}</p></div>
-    </button>`).join("")}
+    ${list.filter(x=>x.group===group).map(x=>{
+      const i=DATA[profile.joint].exercises.indexOf(x);
+      const saved=isExerciseSaved(profile.joint,i);
+      return `<div class="save-wrap">
+        <button class="card exercise-card clickable" style="width:100%;text-align:left" onclick="openExercise(${i})">
+          ${exerciseThumb(x)}
+          <div class="exercise-body"><h3>${x.title}</h3><p>${x.desc}</p></div>
+        </button>
+        <button class="save-toggle ${saved?"saved":""}" aria-label="${saved?"Quitar de guardados":"Guardar ejercicio"}" onclick="toggleExerciseSaved('${profile.joint}',${i})">${bookmarkIcon(saved)}</button>
+      </div>`;
+    }).join("")}
   `).join("");
 
   document.getElementById("exerciseScreen").innerHTML=`
@@ -2723,8 +2815,13 @@ function renderExercises(){
 }
 function openExercise(i){
   const x=DATA[profile.joint].exercises[i];
+  const saved=isExerciseSaved(profile.joint,i);
   openDetail(x.title,`
     ${exerciseThumb(x,true)}
+    <div class="save-detail">
+      <div><strong id="detailSaveExerciseLabel">${saved?"Guardado":"Guardar ejercicio"}</strong><small>Tenlo a mano en la sección Guardados</small></div>
+      <button id="detailSaveExercise" class="${saved?"saved":""}" aria-label="${saved?"Quitar de guardados":"Guardar"}" onclick="toggleExerciseSaved('${profile.joint}',${i},false);updateExerciseSaveDetail('${profile.joint}',${i})">${bookmarkIcon(saved)}</button>
+    </div>
     <div class="eyebrow">${DATA[profile.joint].label} · ${x.group}</div><h2>${x.title}</h2>
     <p>${x.desc}</p>
     <div class="info-card"><h3>Objetivo</h3><p style="margin:0">${x.goal}</p></div>
@@ -2932,6 +3029,38 @@ function clearGuideSearch(){
   input.focus();
 }
 
+
+function renderQuestions(){
+  const tabs=[["before","Antes"],["during","Durante"],["after","Después"]];
+  const copy={
+    before:["Antes de la cirugía","Preparación, pruebas, anestesia y dudas habituales antes del ingreso."],
+    during:["Cirugía e ingreso","Qué suele ocurrir el día de la intervención y durante los primeros momentos en el hospital."],
+    after:["Después de la cirugía","Recuperación, actividades cotidianas y situaciones en las que conviene consultar."]
+  };
+  const items=PATIENT_FAQ[profile.joint]?.[questionsTab]||[];
+  const joint=profile.joint==="knee"?"rodilla":"cadera";
+
+  document.getElementById("questionsScreen").innerHTML=`
+    ${topbar("PREGUNTAS",DATA[profile.joint].label.toUpperCase())}
+    <div class="content">
+      <div class="eyebrow">Dudas frecuentes</div>
+      <h1>Respuestas para cada momento.</h1>
+      <p>Las preguntas cambian automáticamente según la cirugía seleccionada. Son respuestas generales: las indicaciones concretas recibidas en consulta y al alta prevalecen siempre.</p>
+
+      <div class="segmented">${tabs.map(([id,label])=>`<button class="${questionsTab===id?"active":""}" onclick="questionsTab='${id}';renderQuestions()">${label}</button>`).join("")}</div>
+
+      <div class="faq-intro">
+        <h3>${copy[questionsTab][0]}</h3>
+        <p>${copy[questionsTab][1]}</p>
+      </div>
+
+      <div class="faq-count">${items.length} preguntas sobre tu prótesis de ${joint}</div>
+      ${items.map((x,i)=>accordionHTML(x.q,x.a,profile.joint+"_"+questionsTab+"_"+i)).join("")}
+
+      <div class="footer-note">Información general contrastada con materiales para pacientes de AAHKS, AAOS y NHS. Las indicaciones del Dr. Del Canto y del equipo que conoce el caso prevalecen siempre.</div>
+    </div>`;
+}
+
 function renderGuide(){
   const list=filteredBlogArticles("");
 
@@ -2982,10 +3111,14 @@ function articleCard(a){
         ? approvedJointVisual(profile.joint,"article")
         : `<div class="article-visual">${ICONS[a.icon]||ICONS.book}</div>`;
   const source = "";
-  return `<button class="article" onclick="openArticle('${a.id}')">
-    ${visual}
-    <div><div class="cat">${a.cat}${source}</div><h3>${a.title}</h3><p>${a.summary}</p></div>
-  </button>`;
+  const saved=isArticleSaved(a.id);
+  return `<div class="save-wrap">
+    <button class="article" onclick="openArticle('${a.id}')">
+      ${visual}
+      <div><div class="cat">${a.cat}${source}</div><h3>${a.title}</h3><p>${a.summary}</p></div>
+    </button>
+    <button class="save-toggle ${saved?"saved":""}" aria-label="${saved?"Quitar de guardados":"Guardar artículo"}" onclick="toggleArticleSaved('${a.id}')">${bookmarkIcon(saved)}</button>
+  </div>`;
 }
 function stripArticleCTAs(content){
   const tmp=document.createElement("div");
@@ -3031,7 +3164,7 @@ function openArticle(id){
     media="";
   }else{
     media = resolvedMedia
-      ? `<div class="hero-media" style="${isBlog || a.media==='MAKO_PHOTO_REAL' ? 'background:#eef2f3;padding:0' : 'background:var(--brand);display:grid;place-items:center;padding:28px'}"><img src="${resolvedMedia}" style="${isBlog || a.media==='MAKO_PHOTO_REAL' ? 'object-fit:cover;width:100%;height:100%' : 'object-fit:contain;width:100%;height:100%'}" onerror="this.style.display='none'"></div>`
+      ? `<div class="hero-media" style="${isBlog || a.media==='MAKO_PHOTO_REAL' ? 'background:#eef2f3;padding:0' : 'background:var(--brand);display:grid;place-items:center;padding:28px'}"><img src="${resolvedMedia}" style="${isBlog || a.media==='MAKO_PHOTO_REAL' ? 'object-fit:cover;width:100%;height:100%' : 'object-fit:contain;width:100%;height:100%'}" onerror="if(!this.dataset.fallback){this.dataset.fallback='1';this.src='./assets/doctor-placeholder.png';}"></div>`
       : "";
   }
   const intro=isBlog
@@ -3039,7 +3172,12 @@ function openArticle(id){
     : "";
   const body=isBlog?stripArticleCTAs(a.content):a.content;
   const related=isBlog?relatedReadingHTML(a):"";
-  openDetail(a.title,media+intro+body+related+`
+  const saved=isArticleSaved(a.id);
+  const saveBox=`<div class="save-detail">
+    <div><strong id="detailSaveArticleLabel">${saved?"Guardado":"Guardar para después"}</strong><small>Lo encontrarás en Más → Guardados</small></div>
+    <button id="detailSaveArticle" class="${saved?"saved":""}" aria-label="${saved?"Quitar de guardados":"Guardar"}" onclick="toggleArticleSaved('${a.id}',false);updateArticleSaveDetail('${a.id}')">${bookmarkIcon(saved)}</button>
+  </div>`;
+  openDetail(a.title,media+intro+saveBox+body+related+`
     <div class="divider"></div>
     <p class="tiny">Contenido informativo de apoyo. Las recomendaciones individualizadas del cirujano, del hospital y de fisioterapia prevalecen siempre.</p>`);
 }
@@ -3047,62 +3185,137 @@ function accordionHTML(q,a,i){
   return `<div class="accordion" id="faq_${i}"><button class="acc-btn" onclick="this.parentElement.classList.toggle('open')"><span>${q}</span><svg viewBox="0 0 24 24" fill="none"><path d="m6 9 6 6 6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button><div class="acc-body"><p>${a}</p></div></div>`;
 }
 function openFAQ(){
-  openDetail("Preguntas frecuentes",`<div class="eyebrow">Respuestas rápidas</div><h2>Preguntas frecuentes</h2><p>Información general para las dudas que suelen aparecer antes y después de la cirugía.</p>${FAQ.map((x,i)=>accordionHTML(x[0],x[1],"all"+i)).join("")}`);
+  const items=flattenPatientFAQs();
+  openDetail("Preguntas frecuentes",`<div class="eyebrow">Respuestas rápidas</div><h2>Preguntas frecuentes</h2><p>Información general adaptada a tu prótesis de ${profile.joint==="knee"?"rodilla":"cadera"}.</p>${items.map((x,i)=>accordionHTML(x.q,x.a,"all"+i)).join("")}`);
 }
+
 function openDailyLife(){
   const list=ARTICLES.filter(a=>a.cat==="Vida diaria"&&a.joints.includes(profile.joint));
   openDetail("Vida diaria",`<div class="eyebrow">Guías prácticas</div><h2>Volver a las actividades cotidianas</h2><p>Consulta cada situación por separado.</p>${list.map(articleCard).join("")}`);
 }
 
+
+function openSaved(){
+  const articles=savedArticleIds()
+    .map(id=>allLibraryArticles().find(a=>a.id===id))
+    .filter(Boolean)
+    .filter(a=>a.joints.includes(profile.joint));
+
+  const exerciseItems=savedExerciseKeys().map(key=>{
+    const split=key.split("::");
+    const joint=split.shift();
+    const title=split.join("::");
+    if(joint!==profile.joint) return null;
+    const index=DATA[joint].exercises.findIndex(x=>x.title===title);
+    if(index<0) return null;
+    return {joint,index,x:DATA[joint].exercises[index]};
+  }).filter(Boolean);
+
+  const articleHTML=articles.length
+    ? articles.map(a=>{
+        const isBlog=a.id.startsWith("blog_");
+        const visual = isBlog && a.media
+          ? `<div class="article-thumb"><img src="${a.media}" alt="${a.title.replace(/"/g,'&quot;')}"></div>`
+          : (a.id==="mako")
+            ? `<div class="asset-tile article">${assetImg("mako","asset-icon","Mako")}</div>`
+            : (a.id==="prosthesis_hip")
+              ? approvedJointVisual("hip","article")
+            : (a.id==="prosthesis_knee")
+              ? approvedJointVisual("knee","article")
+            : (a.id==="duration" || a.icon==="joint")
+              ? approvedJointVisual(profile.joint,"article")
+              : `<div class="article-visual">${ICONS[a.icon]||ICONS.book}</div>`;
+        return `<div class="save-wrap">
+          <button class="article" onclick="openArticle('${a.id}')">
+            ${visual}
+            <div><div class="cat">${a.cat}</div><h3>${a.title}</h3><p>${a.summary}</p></div>
+          </button>
+          <button class="save-toggle saved" aria-label="Quitar de guardados" onclick="toggleArticleSaved('${a.id}',false);openSaved()">${bookmarkIcon(true)}</button>
+        </div>`;
+      }).join("")
+    : `<div class="saved-empty">Todavía no has guardado ningún artículo de ${profile.joint==="knee"?"rodilla":"cadera"}.</div>`;
+
+  const exerciseHTML=exerciseItems.length
+    ? exerciseItems.map(({joint,index,x})=>`<div class="save-wrap">
+        <button class="card exercise-card clickable" style="width:100%;text-align:left" onclick="openExercise(${index})">
+          ${exerciseThumb(x)}
+          <div class="exercise-body"><h3>${x.title}</h3><p>${x.desc}</p></div>
+        </button>
+        <button class="save-toggle saved" aria-label="Quitar de guardados" onclick="toggleExerciseSaved('${joint}',${index},false);openSaved()">${bookmarkIcon(true)}</button>
+      </div>`).join("")
+    : `<div class="saved-empty">Todavía no has guardado ningún ejercicio.</div>`;
+
+  openDetail("Guardados",`
+    <div class="eyebrow">Tu selección</div>
+    <h2>Lo que quieres tener a mano.</h2>
+    <p>Los guardados se almacenan únicamente en este dispositivo.</p>
+    <h3>Artículos</h3>
+    ${articleHTML}
+    <div class="divider"></div>
+    <h3>Ejercicios</h3>
+    ${exerciseHTML}
+  `);
+}
+
 function renderMore(){
+  const installed=isStandalone();
+  const installRow=installed
+    ? `<div class="profile-row" style="opacity:.78"><div class="card-ico">${ICONS.check}</div><div><strong>App instalada</strong><small>Esta guía está añadida al dispositivo</small></div></div>`
+    : `<button class="profile-row" onclick="installApp()"><div class="card-ico">${ICONS.install}</div><div><strong>Instalar app</strong><small>Añádela a la pantalla de inicio</small></div><div class="chev">${ICONS.chevron}</div></button>`;
+
   document.getElementById("moreScreen").innerHTML=`
     ${topbar("MÁS","INFORMACIÓN Y AJUSTES")}
     <div class="content">
       <div class="eyebrow">Ayuda</div><h1>Información importante y contacto.</h1>
       <div class="profile-list">
         <button class="profile-row" onclick="openSettings()"><div class="card-ico">${ICONS.settings}</div><div><strong>Mi perfil</strong><small>${jointLabel()} · ${profile.date?fmtDate(profile.date):"Sin fecha programada"}</small></div><div class="chev">${ICONS.chevron}</div></button>
-        <button class="profile-row" onclick="openAlerts()"><div class="card-ico">${ICONS.alert}</div><div><strong>Cuándo consultar</strong><small>Señales de alerta y urgencias</small></div><div class="chev">${ICONS.chevron}</div></button>
+        <button class="profile-row" onclick="openSaved()"><div class="card-ico">${ICONS.bookmark}</div><div><strong>Guardados</strong><small>Artículos y ejercicios para consultar después</small></div><div class="chev">${ICONS.chevron}</div></button>
+        <button class="profile-row" onclick="openAlerts()"><div class="card-ico">${ICONS.alert}</div><div><strong>Cuándo consultar</strong><small>Emergencias y dudas con el equipo</small></div><div class="chev">${ICONS.chevron}</div></button>
         <button class="profile-row" onclick="openDoctor()"><div class="card-ico">${ICONS.user}</div><div><strong>Dr. Francisco del Canto</strong><small>Especialización y contacto</small></div><div class="chev">${ICONS.chevron}</div></button>
         <a class="profile-row" href="tel:+34983330251"><div class="card-ico">${ICONS.phone}</div><div><strong>+34 983 330 251</strong><small>Origen, Diagnóstico y Traumatología</small></div><div class="chev">${ICONS.chevron}</div></a>
         <a class="profile-row" href="mailto:admision@origensalud.com"><div class="card-ico">${ICONS.mail}</div><div><strong>Enviar un email</strong><small>admision@origensalud.com</small></div><div class="chev">${ICONS.chevron}</div></a>
-        <button class="profile-row" onclick="openAbout()"><div class="card-ico">${ICONS.info}</div><div><strong>Sobre esta app</strong><small>Uso, privacidad y limitaciones</small></div><div class="chev">${ICONS.chevron}</div></button>
+        ${installRow}
+        <button class="profile-row" onclick="openAbout()"><div class="card-ico">${ICONS.info}</div><div><strong>Sobre esta app</strong><small>Versión 0.9.0 · uso, privacidad y actualizaciones</small></div><div class="chev">${ICONS.chevron}</div></button>
       </div>
+      ${onlineStatusHTML()}
       <div class="card" style="margin-top:18px">
         <div class="card-row"><div class="card-ico">${ICONS.external}</div><div class="card-body"><h3>Web del Dr. Del Canto</h3><p>Información ampliada sobre cadera, rodilla y cirugía robótica.</p></div></div>
         <a class="btn btn-secondary btn-full" style="margin-top:13px" href="https://protesisdecadera.es/" target="_blank" rel="noopener">Abrir protesisdecadera.es ${ICONS.external}</a>
       </div>
-      <div class="footer-note">Versión de demostración · Los datos de configuración se almacenan localmente en este navegador.</div>
     </div>`;
 }
+
 function openAlerts(){
   openDetail("Cuándo consultar",`
-    <div class="eyebrow">Seguridad</div><h2>Señales de alerta</h2>
-    <p>Después de una intervención pueden aparecer molestias esperables, pero ciertos síntomas requieren valoración.</p>
-    <div class="alert-card">
-      <h3>Atención urgente / 112</h3>
-      <div class="symptom-list" style="color:#934047">
-        <div class="symptom"><span class="bullet"></span><span>Dificultad para respirar, dolor torácico o sensación intensa de falta de aire.</span></div>
-        <div class="symptom"><span class="bullet"></span><span>Pérdida de conocimiento, confusión importante o empeoramiento general brusco.</span></div>
-        <div class="symptom"><span class="bullet"></span><span>Sangrado abundante que no cede o una situación que parezca una emergencia.</span></div>
-      </div>
+    <div class="eyebrow">Seguridad</div>
+    <h2>Qué hacer según la situación.</h2>
+    <p>Esta pantalla diferencia una posible emergencia de una duda o incidencia que puede resolverse contactando con el equipo.</p>
+
+    <div class="contact-choice emergency">
+      <div class="eyebrow" style="color:#934047">Emergencia</div>
+      <h3>Llama al 112</h3>
+      <p>Dificultad importante para respirar, dolor torácico, pérdida de conocimiento, confusión intensa, sangrado abundante que no cede o cualquier situación que parezca una emergencia.</p>
+      <a class="btn btn-danger btn-full" href="tel:112">${ICONS.phone} Llamar al 112</a>
     </div>
-    <div class="warn-card" style="margin-top:10px">
-      <h3>Contactar con el equipo sanitario</h3>
-      <div class="symptom-list" style="color:#8c591d">
-        <div class="symptom"><span class="bullet"></span><span>Fiebre acompañada de empeoramiento, escalofríos o alteración de la herida.</span></div>
-        <div class="symptom"><span class="bullet"></span><span>Secreción, apertura o enrojecimiento progresivo de la herida.</span></div>
-        <div class="symptom"><span class="bullet"></span><span>Dolor que aumenta claramente en lugar de mejorar o dolor brusco nuevo.</span></div>
-        <div class="symptom"><span class="bullet"></span><span>Inflamación marcada o dolor de pantorrilla, especialmente si aparece de forma nueva.</span></div>
-        <div class="symptom"><span class="bullet"></span><span>Caída, golpe importante o sensación de que la articulación ha cambiado de posición.</span></div>
-      </div>
+
+    <div class="contact-choice ordinary">
+      <div class="eyebrow">Consulta con el equipo</div>
+      <h3>Duda o incidencia no urgente</h3>
+      <p>Contacta con el equipo ante fiebre acompañada de empeoramiento, cambios en la herida, dolor que aumenta claramente, inflamación o dolor nuevo en la pantorrilla, una caída importante o cualquier evolución que genere preocupación.</p>
+      <a class="btn btn-secondary btn-full" href="tel:+34983330251">${ICONS.phone} Llamar al equipo</a>
+      <a class="btn btn-ghost btn-full" style="margin-top:8px" href="mailto:admision@origensalud.com">${ICONS.mail} Enviar un email</a>
     </div>
-    <div class="info-card" style="margin-top:10px"><h3>Ante la duda</h3><p style="margin:0">Si un síntoma preocupa o cambia de forma inesperada, es preferible consultar al equipo que conoce el caso.</p></div>
-    <a class="btn btn-danger btn-full" style="margin-top:14px" href="tel:112">${ICONS.phone} Llamar al 112</a>
+
+    <div class="warn-card" style="margin-top:12px">
+      <h3>Importante</h3>
+      <p style="margin:0">Esta guía no puede valorar una urgencia ni sustituye una evaluación médica. Si la situación parece grave o empeora rápidamente, utiliza los servicios de emergencia.</p>
+    </div>
   `);
 }
+
 function openDoctor(){
   openDetail("Dr. Francisco del Canto",`
-    <div class="hero-media"><img src="https://protesisdecadera.es/wp-content/uploads/2021/08/PACO-DEL-CANTO-SOBRE-MI-01.jpg" alt="Dr. Francisco del Canto" onerror="this.style.display='none'"></div>
+    <div class="hero-media"><img src="https://protesisdecadera.es/wp-content/uploads/2021/08/PACO-DEL-CANTO-SOBRE-MI-01.jpg" alt="Dr. Francisco del Canto" onerror="if(!this.dataset.fallback){this.dataset.fallback='1';this.src='./assets/doctor-placeholder.png';}"></div>
     <div class="eyebrow">Cirugía de cadera y rodilla</div><h2>Dr. Francisco del Canto</h2>
     <p>Traumatólogo especializado en cirugía protésica de cadera y rodilla, con experiencia en cirugía reconstructiva y asistencia robótica Mako.</p>
     <h3>Consulta</h3><p>Origen, Diagnóstico y Traumatología<br>C/ Paulina Harriet, 4 y 6 · 47006 Valladolid</p>
@@ -3114,7 +3327,7 @@ function openSettings(){
   openDetail("Mi perfil",`
     <div class="eyebrow">Personalización</div><h2>Mi intervención</h2>
     <div class="field"><label>Nombre</label><input id="editName" value="${profile.name.replace(/"/g,"&quot;")}" placeholder="Nombre opcional"></div>
-    <div class="field"><label>Fecha de intervención</label><input id="editDate" type="date" value="${profile.date}"></div>
+    <div class="field"><label>Fecha de intervención (pasada o futura)</label><input id="editDate" type="date" value="${profile.date}"></div>
     <button class="no-date-choice ${profile.date?"":"selected"}" onclick="document.getElementById('editDate').value='';this.classList.add('selected')">Todavía no tengo fecha</button>
     <div class="field"><label>Articulación</label>
       <div class="select-grid">
@@ -3123,7 +3336,7 @@ function openSettings(){
       </div>
     </div>
     <button class="btn btn-primary btn-full" onclick="saveSettings()">Guardar cambios</button>
-    <button class="btn btn-ghost btn-full" style="margin-top:9px" onclick="resetApp()">${ICONS.rotate} Reiniciar demo</button>
+    <button class="btn btn-ghost btn-full" style="margin-top:9px" onclick="resetApp()">${ICONS.trash} Borrar mis datos de este dispositivo</button>
   `);
   window.editJoint=profile.joint;
 }
@@ -3137,13 +3350,86 @@ function saveSettings(){
   profile={joint:window.editJoint||profile.joint,name:document.getElementById("editName").value.trim(),date:date||""};
   localStorage.setItem("ddc_profile",JSON.stringify(profile));renderAll();closeDetail();toast("Configuración actualizada");
 }
+
+window.addEventListener("beforeinstallprompt",event=>{
+  event.preventDefault();
+  deferredInstallPrompt=event;
+  if(currentScreen==="more") renderMore();
+});
+window.addEventListener("appinstalled",()=>{
+  deferredInstallPrompt=null;
+  toast("App instalada");
+  if(currentScreen==="more") renderMore();
+});
+window.addEventListener("online",()=>{ if(currentScreen==="more") renderMore(); });
+window.addEventListener("offline",()=>{ if(currentScreen==="more") renderMore(); });
+
+async function installApp(){
+  if(isStandalone()){ toast("La app ya está instalada"); return; }
+  if(deferredInstallPrompt){
+    deferredInstallPrompt.prompt();
+    const result=await deferredInstallPrompt.userChoice;
+    deferredInstallPrompt=null;
+    if(result.outcome==="accepted") toast("Instalación iniciada");
+    if(currentScreen==="more") renderMore();
+    return;
+  }
+  openDetail("Instalar app",`
+    <div class="eyebrow">Android</div><h2>Añade esta guía a tu móvil.</h2>
+    <p>Abre esta página en Chrome y utiliza el menú del navegador. Elige <strong>Instalar aplicación</strong> o <strong>Añadir a pantalla de inicio</strong>.</p>
+    <div class="info-card"><h3>Si ya está instalada</h3><p style="margin:0">No necesitas volver a instalarla para recibir cambios. Las nuevas versiones se publican sobre la misma app.</p></div>
+  `);
+}
+
+async function checkForUpdates(manual=true){
+  try{
+    const response=await fetch(`./version.json?t=${Date.now()}`,{cache:"no-store"});
+    if(!response.ok) throw new Error("version");
+    const remote=await response.json();
+    const reg=("serviceWorker" in navigator)?await navigator.serviceWorker.getRegistration():null;
+    if(reg) await reg.update();
+
+    if(remote.version && remote.version!==APP_VERSION){
+      updateAvailableVersion=remote.version;
+      const go=confirm(`Hay una versión nueva (${remote.version}). ¿Quieres cargarla ahora?`);
+      if(go){
+        if(reg?.waiting) reg.waiting.postMessage("SKIP_WAITING");
+        location.replace(location.pathname+`?v=${encodeURIComponent(remote.version)}&t=${Date.now()}`);
+      }
+      return;
+    }
+    updateAvailableVersion=null;
+    if(manual) toast("La app está actualizada");
+  }catch(e){
+    if(manual) toast(navigator.onLine?"No se pudo comprobar la actualización":"Sin conexión. Puedes seguir usando la app");
+  }
+}
+
 function openAbout(){
   openDetail("Sobre esta app",`
-    <div class="eyebrow">Información</div><h2>Una guía para acompañar, no para sustituir la consulta.</h2>
-    <p>El objetivo es reunir en un único lugar la información que suele necesitar una persona antes y después de una cirugía de prótesis de cadera o rodilla.</p>
-    <h3>Qué guarda esta demo</h3><p>La articulación seleccionada, la fecha de cirugía y el nombre opcional se guardan mediante almacenamiento local del navegador. No se envían a un servidor.</p>
-    <h3>Qué no hace</h3><p>No diagnostica, no monitoriza al paciente, no sustituye la rehabilitación y no modifica tratamientos. Tampoco permite comunicar una urgencia al equipo médico.</p>
-    <h3>Fuentes de contenido</h3><p>La sección de Artículos incorpora contenidos editoriales del Dr. Del Canto adaptados a lectura móvil y muestra únicamente los relacionados con la articulación seleccionada. Se han excluido presentaciones, vídeos, casos reales y colaboraciones. Antes de una publicación real, todo el contenido clínico debe someterse a revisión médica final y versionado.</p>
+    <div class="eyebrow">Información</div>
+    <h2>Una guía para acompañar, no para sustituir la consulta.</h2>
+    <p>El objetivo es reunir en un único lugar la información que suele necesitar una persona antes, durante y después de una cirugía de prótesis de cadera o rodilla.</p>
+
+    <div class="info-card">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:12px">
+        <div><h3 style="margin:0 0 4px">Versión de la app</h3><p style="margin:0">Versión instalada en este dispositivo.</p></div>
+        <span class="version-badge">0.9.0</span>
+      </div>
+      <button class="btn btn-secondary btn-full" style="margin-top:12px" onclick="checkForUpdates(true)">${ICONS.refresh} Buscar actualizaciones</button>
+    </div>
+
+    <h3>Datos guardados en el dispositivo</h3>
+    <p>El nombre opcional, la articulación, la fecha de cirugía y los contenidos guardados se almacenan localmente. Esta versión no los envía a un servidor.</p>
+
+    <h3>Uso sin conexión</h3>
+    <p>El contenido principal de la guía, las preguntas, los artículos y los ejercicios están preparados para seguir disponibles sin conexión una vez cargada la PWA. Los enlaces externos, llamadas y correos necesitan los servicios correspondientes del dispositivo.</p>
+
+    <h3>Qué no hace</h3>
+    <p>No diagnostica, no monitoriza al paciente, no sustituye la rehabilitación y no modifica tratamientos. Tampoco permite comunicar una urgencia al equipo médico.</p>
+
+    <h3>Fuentes y revisión</h3>
+    <p>Las preguntas frecuentes se han contrastado con materiales para pacientes de AAHKS, AAOS y NHS. Los artículos proceden del contenido editorial del Dr. Del Canto adaptado a lectura móvil. Las indicaciones del cirujano y del centro prevalecen siempre.</p>
   `);
 }
 
@@ -3160,8 +3446,8 @@ function doGlobalSearch(q){
   q=q.trim().toLowerCase();
   if(q.length<2){box.innerHTML='<p class="muted">Escribe al menos dos letras para buscar entre las guías y preguntas frecuentes.</p>';return}
   const arts=allLibraryArticles().filter(a=>a.joints.includes(profile.joint)&&(a.title+" "+a.summary+" "+a.cat).toLowerCase().includes(q));
-  const faqs=FAQ.filter(x=>(x[0]+" "+x[1]).toLowerCase().includes(q));
-  box.innerHTML=(arts.map(articleCard).join("")||"")+faqs.map((x,i)=>accordionHTML(x[0],x[1],"search"+i)).join("") || '<div class="no-results"><p>No hay resultados.</p></div>';
+  const faqs=flattenPatientFAQs().filter(x=>(x.q+" "+x.a).toLowerCase().includes(q));
+  box.innerHTML=(arts.map(articleCard).join("")||"")+faqs.map((x,i)=>accordionHTML(x.q,x.a,"search"+i)).join("") || '<div class="no-results"><p>No hay resultados.</p></div>';
 }
 
 function openDetail(title,content){
@@ -3187,7 +3473,7 @@ function closeDetail(){
 function toast(msg){
   const t=document.getElementById("toast");t.textContent=msg;t.classList.add("show");clearTimeout(window.__toast);window.__toast=setTimeout(()=>t.classList.remove("show"),2200);
 }
-function renderAll(){nav();setBackIcon();renderHome();renderProcess();renderExercises();renderGuide();renderMore();}
+function renderAll(){nav();setBackIcon();renderHome();renderProcess();renderExercises();renderQuestions();renderGuide();renderMore();}
 
 (function init(){
   nav();setBackIcon();
@@ -3197,7 +3483,7 @@ function renderAll(){nav();setBackIcon();renderHome();renderProcess();renderExer
   }else{
     chooseJoint("hip");
     const d=new Date();d.setDate(d.getDate()+14);
-    document.getElementById("surgeryDate").min=new Date().toISOString().slice(0,10);
+    /* La app admite una cirugía pasada o futura. */
   }
 })();
 </script>

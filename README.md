@@ -1,20 +1,25 @@
 # App Dr. Francisco del Canto — PWA
 
-Archivos principales:
+Versión **0.9.0**
 
-- `index.html`: aplicación.
-- `manifest.webmanifest`: configuración de instalación PWA.
-- `service-worker.js`: caché, actualizaciones y funcionamiento offline básico.
-- `icons/`: iconos Android, incluidos iconos `maskable`.
+## Novedades
+- Permite registrar una cirugía pasada o futura.
+- Nueva pestaña **Preguntas** en el menú inferior.
+- 42 preguntas frecuentes específicas para cadera o rodilla, agrupadas en **Antes / Durante / Después**.
+- Guardado local de artículos y ejercicios.
+- Pantalla de seguridad separando **emergencia (112)** de **consulta ordinaria con el equipo**.
+- Instalación de la PWA desde la propia app.
+- Versión visible y botón **Buscar actualizaciones**.
+- Mejor funcionamiento offline.
+- Opción **Borrar mis datos de este dispositivo**.
 
-## GitHub Pages
+## Publicación en GitHub Pages
+Reemplaza/sube en la raíz del repositorio:
+- `index.html`
+- `manifest.webmanifest`
+- `service-worker.js`
+- `version.json`
+- carpeta `icons/`
+- carpeta `assets/`
 
-La PWA está preparada para publicarse desde una subcarpeta de GitHub Pages, por ejemplo:
-
-`https://usuario.github.io/app-paco-del-canto/`
-
-Todos los paths son relativos para que funcione correctamente en ese entorno.
-
-## Actualizaciones durante las pruebas
-
-El service worker utiliza una estrategia `network-first` para las navegaciones, de modo que las nuevas versiones publicadas en GitHub Pages tengan prioridad sobre la copia cacheada.
+GitHub Pages continuará utilizando la misma URL y la PWA instalada seguirá siendo la misma aplicación.
