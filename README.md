@@ -28,3 +28,9 @@ GitHub Pages continuará utilizando la misma URL y la PWA instalada seguirá sie
 ## Versión 0.9.1
 
 Checklists interactivos y persistentes en las tres primeras etapas de Mi proceso.
+
+## Versión 0.9.2
+
+La versión 0.9.1 sí contenía los nuevos checklists, pero dos textos de la interfaz
+seguían mostrando `0.9.0` de forma fija. En 0.9.2 el número visible se toma siempre
+de `APP_VERSION`, evitando futuras discrepancias.

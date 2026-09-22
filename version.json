@@ -1,12 +1,12 @@
 {
-  "version": "0.9.1",
-  "date": "2026-09-21",
+  "version": "0.9.2",
+  "date": "2026-09-22",
   "notes": [
+    "Corrección del indicador de versión visible en Más y Sobre esta app",
     "Checklists interactivos y persistentes en Preparación, Última semana y Cirugía e ingreso",
     "Checklist de Cirugía e ingreso ampliado con preparación para el alta",
     "Los checks se guardan por separado para cadera y rodilla",
-    "Fecha de cirugía pasada o futura",
-    "Nueva sección Preguntas para cadera y rodilla",
-    "Guardados de artículos y ejercicios"
-  ]
+    "Se mantienen Preguntas, Guardados, instalación PWA, offline y borrado de datos"
+  ],
+  "build": "2026-09-22-checklists"
 }
